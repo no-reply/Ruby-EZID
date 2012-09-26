@@ -1,7 +1,7 @@
 require 'rest_client'
 require 'uri'
 
-module ezid
+module Ezid
 
   class ApiSession
 
@@ -111,8 +111,16 @@ r', 'erc.what' => 'The Open Society and Its Enemies', 'erc.when' => '1945'}
     end
 
     def make_anvl(metadata)
-      #TODO: define anvl method
-      ''
+      #TODO: define escape method for anvl
+      def escape(s)
+        s
+      end
+      anvl = ''
+      metadata.each do |n, v|
+        anvl += escape(n) + ': ' + escape(v) + "\n"
+      end
+      #TODO: encode anvl UTF-8
+      anvl.strip() #remove last newline. there is probably a really good way avoid adding it in the first place. if you know it, please fix.
     end
 
   end
