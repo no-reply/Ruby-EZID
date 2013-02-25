@@ -160,7 +160,7 @@ r', 'erc.what' => 'The Open Society and Its Enemies', 'erc.when' => '1945'}
     def make_anvl(metadata)
       #TODO: define escape method for anvl
       def escape(s)
-        URI.escape(i, /[%:\n\r]/)
+        URI.escape(s, /[%:\n\r]/)
       end
       anvl = ''
       metadata.each do |n, v|
