@@ -4,6 +4,7 @@ module Ezid
 
   class ApiSession
 
+
     VERSION = '0.1.0'
     APIVERSION = 'EZID API, Version 2'
 
@@ -16,8 +17,7 @@ module Ezid
     PUBLIC = "public"
     UNAVAIL = "unavailable"
     TESTSHOULDER = {SCHEMES[:ark] => '99999/fk4', SCHEMES[:doi] => '10.5072/FK2'}
-    TESTMETADATA = {'_target' => 'http://example.org/opensociety', 'erc.who' => 'Karl Poppe\
-r', 'erc.what' => 'The Open Society and Its Enemies', 'erc.when' => '1945'}
+    TESTMETADATA = {'_target' => 'http://example.org/opensociety', 'erc.who' => 'Karl Popper', 'erc.what' => 'The Open Society and Its Enemies', 'erc.when' => '1945'}
 
     def initialize(username=TESTUSERNAME, password=TESTPASSWORD, scheme=:ark, naa='')
       if username == TESTUSERNAME
@@ -107,7 +107,10 @@ r', 'erc.what' => 'The Open Society and Its Enemies', 'erc.when' => '1945'}
     end
 
     def set_scheme(scheme)
-      @scheme = scheme
+      @scheme = SCHEMES[scheme]
+      if @test == true
+        @naa = TESTSHOULDER[@scheme]
+      end
     end
 
     def set_naa(naa)
