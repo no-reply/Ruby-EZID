@@ -41,7 +41,8 @@ r', 'erc.what' => 'The Open Society and Its Enemies', 'erc.when' => '1945'}
       shoulder = @scheme + @naa
       metadata['_status'] = PRIVATE
       #TODO: send mint request to API
-      false
+      request_uri = "/shoulder/" + shoulder
+      call_api(request_uri, :post, metadata)
     end
 
     def create(identifier, metadata={})
