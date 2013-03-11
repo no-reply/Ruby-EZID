@@ -1,1 +1,8 @@
 EZID API for Ruby
+
+This API is part of work to integrate EZID into the OregonDigital Hydra DAMS system in development. It is currently in use for development on that system; we don't recommend it for production use at this time.
+
+https://rubygems.org/gems/ezid
+
+Pull requests accepted.
+
