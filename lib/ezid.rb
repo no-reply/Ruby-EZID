@@ -5,7 +5,7 @@ module Ezid
   class ApiSession
 
 
-    VERSION = '0.1.0'
+    VERSION = '0.1.1'
     APIVERSION = 'EZID API, Version 2'
 
     SECURESERVER = "https://n2t.net/ezid"
