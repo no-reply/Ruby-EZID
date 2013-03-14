@@ -74,7 +74,7 @@ module Ezid
       if(request.errored?)
         return request
       else
-        return Ezid::Record.new(self,request.response["identifier"],request.response["metadata"])
+        return Ezid::Record.new(self,request.response["identifier"],request.response["metadata"],true)
       end
     end
 

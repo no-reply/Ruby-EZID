@@ -69,4 +69,47 @@ describe Ezid::Record do
       @record["_status"].should == Ezid::ApiSession::UNAVAIL
     end
   end
+  describe ".persisted?" do
+    before(:each) do
+      @session = Ezid::ApiSession.new
+      @record = Ezid::Record.new(@session,@session.build_identifier("blabla"),{"Test" => 1, "Test2" => 3})
+    end
+    after(:each) do
+      @record.delete
+    end
+    it "should return false if an attribute has been changed" do
+      @record["Test"] = 3
+      @record.should_not be_persisted
+    end
+    it "should return true if an attribute is updated with its old value, and it was already persisted" do
+      Ezid::ApiSession.any_instance.should_receive(:call_api).at_least(1).times.and_return(double("responseMock", :errored? => false))
+      @record.save
+      @record["Test"] = 1
+      @record.should be_persisted
+    end
+    it "should return false if it was never saved" do
+      @record.should_not be_persisted
+    end
+    it "should return true if it was saved" do
+      Ezid::ApiSession.any_instance.should_receive(:call_api).at_least(1).times.and_return(double("responseMock", :errored? => false))
+      @record.save
+      @record.should be_persisted
+    end
+  end
+  describe ".reload" do
+    before(:each) do
+      @session = Ezid::ApiSession.new
+      @record = @session.mint({"Test" => "bla"})
+    end
+    after(:each) do
+      @record.delete
+    end
+    it "should pull in new information" do
+      @oldupdated = @record["_updated"]
+      @record["Test"] = "Testing"
+      @record.save
+      @record.reload
+      @record["_updated"].should_not == @oldupdated
+    end
+  end
 end

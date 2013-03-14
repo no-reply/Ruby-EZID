@@ -1,12 +1,27 @@
 module Ezid
   class Record
     attr_reader :identifier, :metadata
-    def initialize(session, identifier, metadata={})
+    def initialize(session, identifier, metadata={},persisted=false)
       @identifier = identifier
       @metadata = metadata
       @session = session
       @changed = []
       @stale = false
+      @persisted = persisted
+      self
+    end
+    # There has to be a better way to do this.
+    def reload
+      if(self.stale?)
+        newRecord = @session.get(@identifier)
+        @identifier = newRecord.identifier
+        @metadata = newRecord.metadata
+        @stale = false
+      end
+      return self
+    end
+    def persisted?
+      @changed.length != 0 ? false : @persisted
     end
     def [](attribute)
       @metadata[attribute]
@@ -26,13 +41,16 @@ module Ezid
       return @stale
     end
     def save
+      return self if self.persisted?
       modifyData = @changed.each_with_object({}){|key, hash| hash[key] = @metadata[key]}
       request_uri = "/id/#{@identifier}"
       result = @session.send(:call_api,request_uri, :post, modifyData)
       if(result.errored?)
         raise "Unable to save - error: #{result.response}"
       end
+      @persisted = true
       @stale = true
+      @changed = []
       return self
     end
     # Utility Methods
