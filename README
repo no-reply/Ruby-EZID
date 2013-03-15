@@ -1,4 +1,5 @@
 EZID API for Ruby
+-------
 
 https://rubygems.org/gems/ezid
 
@@ -17,3 +18,7 @@ This API is part of work to integrate EZID into the OregonDigital Hydra DAMS sys
 The ApiSession object will also accept a username, password, identifer scheme and naa like this: Ezid::ApiSession.new('username', 'password', :doi, '12345')
 
 
+License
+-------
+
+[![cc0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/)
