@@ -4,7 +4,7 @@ require 'ezid/server_response'
 module Ezid
   class ApiSession
 
-    VERSION = '0.1.1'
+    VERSION = '0.2.0'
     APIVERSION = 'EZID API, Version 2'
 
     SECURESERVER = "https://n2t.net/ezid"
