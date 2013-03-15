@@ -1,5 +1,5 @@
-EZID API for Ruby
--------
+EZID API
+========
 
 https://rubygems.org/gems/ezid
 
