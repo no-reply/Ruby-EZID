@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'ezid'
+require 'docopt'
+
+doc = <<DOCOPT
+EZID API client.
+
+Usage: 
+       #{__FILE__} mint [-u <username> -p <password> -n <naa>] [-s <scheme>]
+
+Option:
+       -u, --username       API Username
+       -p, --password       API Password
+       -n, --naa            Name Assigning Authority
+       -s, --scheme         Identifer scheme (ark or doi)
+
+DOCOPT
+
+begin
+  opts = Docopt::docopt(doc, version: 'EZID 0.2.0')
+  
+  # open an EZID session
+  if opts['<username>']
+    api = Ezid::ApiSession.new(opts['<username>'], opts['<password>'], naa = opts['<naa>'])
+  else
+    api = Ezid::ApiSession.new
+  end
+
+  if opts['mint']
+    puts api.mint.identifier
+  end
+
+rescue Docopt::Exit => e
+  puts e.message
+end
+ 
