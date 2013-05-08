@@ -40,7 +40,6 @@ module Ezid
     def mint(metadata={})
       shoulder = @scheme + @naa
       metadata['_status'] = PRIVATE
-      #TODO: send mint request to API
       request_uri = "/shoulder/" + shoulder
       request = call_api(request_uri, :post, metadata)
       if(request.errored?)
@@ -151,7 +150,6 @@ module Ezid
     end
 
     def make_anvl(metadata)
-      #TODO: define escape method for anvl
       def escape(s)
         URI.escape(s, /[%:\n\r]/)
       end
