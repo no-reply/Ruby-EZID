@@ -4,3 +4,4 @@
 tmp/
 #Ignore rspec configuration
 .rspec
+Gemfile.lock
