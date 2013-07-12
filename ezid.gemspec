@@ -12,4 +12,5 @@ Gem::Specification.new do |s|
              "lib/ezid/server_response.rb"
   ]
   s.homepage = "http://achelo.us/code/ezid_api"
+  s.license = "Public Domain"
 end
