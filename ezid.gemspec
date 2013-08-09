@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'ezid'
-  s.version = '0.2.0'
+  s.version = '0.2.1'
   s.date = '2013-03-14'
   s.summary = "API client for California Digital Library's EZID service."
   s.description = "API client for California Digital Library's EZID service."

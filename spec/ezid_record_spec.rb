@@ -3,14 +3,22 @@ require 'spec_helper'
 describe Ezid::Record do
   describe ".delete" do
     before(:all) do
-      @session = Ezid::ApiSession.new
-      @mintedId = @session.mint(Ezid::ApiSession::TESTMETADATA)
+      session = Ezid::ApiSession.new
+      @mintedId = session.mint(Ezid::ApiSession::TESTMETADATA)
+      doisession = Ezid::ApiSession.new(Ezid::ApiSession::TESTUSERNAME, Ezid::ApiSession::TESTPASSWORD, :doi)
+      @mintedDoi = doisession.mint(Ezid::ApiSession::TESTMETADATA)
     end
-    it "should succesfully delete the ID" do
+    it "should succesfully delete an ark" do
       result = @mintedId.delete
       result.should be_kind_of Ezid::ServerResponse
       result.should_not be_errored
       @mintedId.delete.should be_errored
+    end
+    it "should succesfully delete a doi" do
+      result = @mintedDoi.delete
+      result.should be_kind_of Ezid::ServerResponse
+      result.should_not be_errored
+      @mintedDoi.delete.should be_errored
     end
   end
   describe ".[]=" do

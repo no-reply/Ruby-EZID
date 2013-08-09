@@ -4,7 +4,7 @@ require 'ezid/server_response'
 module Ezid
   class ApiSession
 
-    VERSION = '0.2.0'
+    VERSION = '0.2.1'
     APIVERSION = 'EZID API, Version 2'
 
     SECURESERVER = "https://n2t.net/ezid"
@@ -71,6 +71,8 @@ module Ezid
     end
 
     def get(identifier)
+      identifier = identifier.to_str
+      identifier = identifier.split(' | ')[0] if identifier.include?('| ark:/')
       request_uri = "/id/" + identifier
       request = call_api(request_uri, :get)
       if(request.errored?)

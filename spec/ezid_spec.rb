@@ -20,23 +20,31 @@ describe Ezid::ApiSession do
     end
   end
   describe ".mint" do
-    subject{Ezid::ApiSession.new}
-    before(:all) do
-      @session = Ezid::ApiSession.new
-      @mintedId = @session.mint(Ezid::ApiSession::TESTMETADATA)
-    end
     it "should mint an ark" do
-      @mintedId.should be_kind_of Ezid::Record
-      @mintedId.identifier.should start_with "#{@session.instance_variable_get(:@scheme)}#{@session.instance_variable_get(:@naa)}"
+      session = Ezid::ApiSession.new
+      mintedArk = session.mint(Ezid::ApiSession::TESTMETADATA)
+      mintedArk.should be_kind_of Ezid::Record
+      mintedArk.identifier.should start_with "#{session.instance_variable_get(:@scheme)}#{session.instance_variable_get(:@naa)}"
+    end
+    it "should mint a doi" do
+      doisession = Ezid::ApiSession.new(Ezid::ApiSession::TESTUSERNAME, Ezid::ApiSession::TESTPASSWORD, :doi)
+      mintedDoi = doisession.mint(Ezid::ApiSession::TESTMETADATA)
+      mintedDoi.should be_kind_of Ezid::Record
+      mintedDoi.identifier.should start_with "#{doisession.instance_variable_get(:@scheme)}#{doisession.instance_variable_get(:@naa)}"
     end
   end
   describe ".build_identifier" do
     before(:all) do
       @session = Ezid::ApiSession.new
+      @doisession = Ezid::ApiSession.new(Ezid::ApiSession::TESTUSERNAME, Ezid::ApiSession::TESTPASSWORD, :doi)
     end
     it "should generate an ark" do
       id = @session.build_identifier('someid')
       id.should match(/^ark:\/[0-9]{5,}\/[^\/]+(\/.+)?/)
+    end
+    it "should generate a doi" do
+      id = @doisession.build_identifier('someid')
+      id.should match(/^(doi|DOI):10\.[0-9]{4}\/.+/)
     end
   end
   describe ".create" do
