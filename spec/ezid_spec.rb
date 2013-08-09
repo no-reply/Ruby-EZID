@@ -30,6 +30,15 @@ describe Ezid::ApiSession do
       @mintedId.identifier.should start_with "#{@session.instance_variable_get(:@scheme)}#{@session.instance_variable_get(:@naa)}"
     end
   end
+  describe ".build_identifier" do
+    before(:all) do
+      @session = Ezid::ApiSession.new
+    end
+    it "should generate an ark" do
+      id = @session.build_identifier('someid')
+      id.should match(/^ark:\/[0-9]{5,}\/[^\/]+(\/.+)?/)
+    end
+  end
   describe ".create" do
     before(:all) do
       @session = Ezid::ApiSession.new

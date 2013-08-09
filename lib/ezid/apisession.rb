@@ -51,22 +51,25 @@ module Ezid
 
     def create(identifier, metadata={})
       metadata = transform_metadata(metadata)
-      if not (identifier.start_with?(SCHEMES[:ark]) or identifier.start_with?(SCHEMES[:doi]))
-        identifier = @scheme + @naa + identifier
-      end
-      request_uri = "/id/" + identifier
+      request_uri = "/id/" + build_identifier(identifier)
       request = call_api(request_uri, :put, metadata)
       request.errored? ? request : get(request)
     end
+
     def transform_metadata(metadata)
       if !metadata['_status']
         metadata['_status'] = PRIVATE
       end
       return metadata
     end
+
     def build_identifier(identifier)
-      "#{@scheme}#{@naa}#{identifier}"
+      if not (identifier.start_with?(ApiSession::SCHEMES[:ark]) or identifier.start_with?(ApiSession::SCHEMES[:doi]))
+        identifier = @scheme + @naa + identifier
+      end
+      identifier
     end
+
     def get(identifier)
       request_uri = "/id/" + identifier
       request = call_api(request_uri, :get)
