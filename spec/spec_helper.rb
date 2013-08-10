@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 require 'rubygems'
 require 'bundler'
 Bundler.require(:default, :test)
@@ -20,5 +22,5 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 end
-$:.unshift File.expand_path('../lib', File.dirname(__FILE__))
+$LOAD_PATH.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'ezid'
