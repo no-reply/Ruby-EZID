@@ -6,7 +6,7 @@ require 'ezid/server_response'
 
 module Ezid
   class ApiSession
-    attr_accessor :naa, :username, :password
+    attr_accessor :naa, :username, :password, :url
     attr_reader :scheme
 
     VERSION = '0.2.1'
@@ -27,7 +27,8 @@ module Ezid
       'erc.what' => 'The Open Society and Its Enemies',
       'erc.when' => '1945' }
 
-    def initialize(username = TESTUSERNAME, password = TESTPASSWORD, scheme = :ark, naa = '')
+    def initialize(username = TESTUSERNAME, password = TESTPASSWORD,
+                   scheme = :ark, naa = '', url = nil)
       if username == TESTUSERNAME
         password = TESTPASSWORD
         @test = true
@@ -39,6 +40,7 @@ module Ezid
       @pass = password
       @scheme = SCHEMES[scheme]
       @naa = naa
+      @url = url
 
       @naa = TESTSHOULDER[@scheme] if @test == true
       self
@@ -109,7 +111,8 @@ module Ezid
     private
 
     def call_api(request_uri, request_method, request_data = nil)
-      uri = URI(SECURESERVER + request_uri)
+      @url ||= SECURESERVER
+      uri = URI(@url + request_uri)
 
       # which HTTP method to use?
       if request_method == :get

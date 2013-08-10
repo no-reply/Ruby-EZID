@@ -20,6 +20,15 @@ describe Ezid::ApiSession do
         subject.instance_variable_get(:@pass).should == Ezid::ApiSession::TESTPASSWORD
       end
     end
+    it 'should allow custom api endpoints' do
+      subject.url = 'http://example.org'
+      subject.url.should == 'http://example.org'
+      new_session = Ezid::ApiSession.new(Ezid::ApiSession::TESTUSERNAME,
+                                         Ezid::ApiSession::TESTPASSWORD, :doi,
+                                         '10.9999',
+                                         'http://example.org')
+      new_session.url.should == 'http://example.org'
+    end
   end
   describe '.mint' do
     it 'should mint an ark' do
