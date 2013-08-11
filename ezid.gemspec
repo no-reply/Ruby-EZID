@@ -11,6 +11,12 @@ Gem::Specification.new do |s|
              "lib/ezid/record.rb",
              "lib/ezid/server_response.rb"
   ]
+
+  s.add_development_dependency "bundler", "~> 1.3"
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rubocop'
+
   s.homepage = "http://achelo.us/code/ezid_api"
   s.license = "Public Domain"
 end
