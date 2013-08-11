@@ -1,6 +1,8 @@
 EZID API
 ========
 
+[![Build Status](https://secure.travis-ci.org/no-reply/bagit.png)](http://travis-ci.org/no-reply/bagit)
+
 https://rubygems.org/gems/ezid
 
 This API is part of work to integrate EZID into the OregonDigital Hydra DAMS system in development. It is currently in use for development on that system; we don't recommend it for production use at this time.
@@ -11,10 +13,10 @@ This API is part of work to integrate EZID into the OregonDigital Hydra DAMS sys
     i = session.mint()
     i.identifier # =>  "ark:/99999/fk4058n1x"
 
-    # or specify your own id 
+    # or specify your own id
     i = session.create('monkey')
     i.identifier # =>  "ark:/99999/fk4monkey"
-    
+
 The ApiSession object will also accept a username, password, identifer scheme and naa like this: Ezid::ApiSession.new('username', 'password', :doi, '12345')
 
 
