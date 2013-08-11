@@ -1,7 +1,7 @@
 EZID API
 ========
 
-[![Build Status](https://secure.travis-ci.org/no-reply/bagit.png)](http://travis-ci.org/no-reply/bagit)
+[![Build Status](https://secure.travis-ci.org/no-reply/Ruby-EZID.png)](http://travis-ci.org/no-reply/bagit)
 
 https://rubygems.org/gems/ezid
 
